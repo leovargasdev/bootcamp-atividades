@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,700,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Fira Sans', sans-serif;
+  background: #263542;
+}
+
+header {
+  background: #13222f;
+  display: flex;
+  justify-content: center;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  padding: 0 42px;
+  color: #fff;
+  min-width: 980px;
+  font-size: 14px;
+}
+
+nav img {
+  height: 24px;
+}
+
+.link-profile span {
+  font-size: 20px;
+  font-weight:bold;
+}
+
+.link-profile {
+  display: flex;
+  align-items: center;
+}
+
+.link-profile i {
+  margin-left: 5px;
+  font-size: 28px;
+}
+
+#post-list {
+  width: 700px;
+  margin: 0 auto 20px;
+}
+
+/* Post.js */
+
+.post {
+  margin-top: 20px;
+  border-radius: 8px;
+  background: #192734;
+  padding: 20px;
+  color: #FFF;
+  line-height: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+}
+
+.post-author .info {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  line-height: 14px;
+}
+
+.post-author .info strong{
+  font-size: 18px;
+  color: #FFF;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.post-author .info span{
+  font-size: 12px;
+  color: #aaaaaa;
+  font-weight: 300;
+}
+
+.avatar {
+  min-height: 45px;
+  min-width: 45px;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
+
+.post-content {
+  margin-top: 15px;
+  font-size: 16px;
+}
+.post-content p:first-child{
+  margin-bottom: 20px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #eeeeee;
+}
+
+/* Comment.js */
+.post-comments {
+  margin-top: 20px;
+}
+
+.comment {
+  margin-top: 10px;
+  display: flex;
+}
+
+.comment p {
+  border-radius: 20px;
+  font-size: 14px;
+  background: #1e2e3c;
+  color: #FFF;
+  margin-left: 15px;
+  padding: 15px;
+  letter-spacing: -0.2px;
+  text-align: justify;
+}
+
+.comment p strong{
+  font-size: 15px;
+  margin-right: 4px;
+  font-weight: bold;
+}
