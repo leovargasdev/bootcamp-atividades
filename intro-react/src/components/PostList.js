@@ -9,7 +9,7 @@ faker.locale = "pt_BR";
 class PostList extends Component {
   state = {  posts: []  };
   
-  getAuthor = () => {
+  setAuthor = () => {
     const idPhoto = Math.floor(Math.random() * (10000000 - 19999999)) + 19999999;
     return {
       name: faker.name.findName(),
@@ -17,21 +17,24 @@ class PostList extends Component {
     };
   }
 
-  getDatePrettier = () => format( 
+  setDatePrettier = () => format( 
     faker.date.past(),
     "dd 'de' MMMM 'de' yyyy 'às' H:mm'h'",
     { locale: pt }
   );
 
-  getComments = () => {
-    const nComments = Math.floor(Math.random() * (10)), comments = [];
+  setComment = (postId) => {
+    return {
+      id: postId,
+      author: this.setAuthor(),
+      content: faker.lorem.lines(),
+    }
+  }
+
+  setComments = () => {
+    const nComments = Math.floor(Math.random() * (5)), comments = [];
     for(let c = 0; c < nComments; c++){
-      comments.push({
-        id: c,
-        author: this.getAuthor(),
-        date: this.getDatePrettier(),
-        content: faker.lorem.lines(),
-      });
+      comments.push(this.setComment(c));
     }
     return comments;
   }
@@ -39,10 +42,10 @@ class PostList extends Component {
   setNewPost = () => {
     return {
       id: this.state.posts.length,
-      author: this.getAuthor(),
-      date: this.getDatePrettier(),
+      author: this.setAuthor(),
+      date: this.setDatePrettier(),
       content: faker.lorem.sentences(),
-      comments: this.getComments(),
+      comments: this.setComments(),
     };
   }
 
@@ -65,11 +68,26 @@ class PostList extends Component {
     });
   };
 
+  handleResetPost = () => {
+    this.setState({ posts: [] });
+  };
+
+  handleNewComment = (postId) => {
+    const { posts } = this.state;
+    posts[postId].comments.push(this.setComment(posts[postId].comments.length));
+    this.setState({ posts });
+  };
+
   render() {
     return(
       <div id="post-list">
-        {this.state.posts.map(post => <Post {...post} key={post.id} />)}
-        <button onClick={this.handleNewPost}>Novo Post</button>
+        <button id="btn-reset-posts" onClick={this.handleResetPost}>
+          Reset Posts
+        </button>
+        {this.state.posts.map(post => <Post {...post} key={post.id} newComment={() => this.handleNewComment(post.id)}/>)}
+        <button id="btn-new-post" onClick={this.handleNewPost}>
+          New Post
+        </button>
       </div>
     );
   }

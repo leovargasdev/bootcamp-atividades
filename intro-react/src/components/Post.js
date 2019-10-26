@@ -1,7 +1,7 @@
 import React from 'react';
 import Comment from './Comment';
 
-function Post({ author, date, content, comments }){
+function Post({ author, date, content, comments, newComment}){
   return (
     <div className="post">
       <div className="post-author">
@@ -15,6 +15,9 @@ function Post({ author, date, content, comments }){
         <p>{content}</p>
         {comments.map(comment => <Comment key={comment.id} comment={comment} />)}
       </div>
+      <button onClick={newComment} id="btn-new-comment">
+        New Comment
+      </button>
     </div>
   );
 };
