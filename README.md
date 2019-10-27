@@ -11,3 +11,6 @@ Esse repositório contém todos os desafios de cada módulo do bootcamp.
 
 ![](desafio-04-giphy.gif)
 
+## Desafio 05
+**Repositórios Github:** Criar uma aplicação para adicionar repositórios do github e armazenar no localStorage. Ao selecionar um repositório a rota /repository deve mostrar as informações e os issues do repositório em questão, também é possível filtrar e paginar os issues.
+[README COMPLETO](https://github.com/Rocketseat/bootcamp-gostack-desafio-05/blob/master/README.md)
