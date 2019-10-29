@@ -51,10 +51,19 @@ export const IssueList = styled.ul`
   li {
     display: flex;
     padding: 15px 10px;
-    border: 1px solid #eee;
+    border: 2px solid #eee;
     border-radius: 4px;
     & + li {
-      margin-top: 10px;
+      margin-top: 7px;
+    }
+    &:hover {
+      background: #2e1f5f;
+      color: white;
+      cursor: pointer;
+
+      a {
+        color: white;
+      }
     }
   }
 
@@ -110,7 +119,8 @@ export const ButtonFilterIssue = styled.div`
     font-size: 15px;
     flex: 1;
     height: 40px;
-    background: #9689c3;
+    background: #7159c1;
+    color: white;
     border: 0;
     padding: 0px 15px;
     margin-left: 10px;
@@ -122,15 +132,33 @@ export const ButtonControllerPages = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 15px;
+`;
 
-  button {
-    font-size: 15px;
-    flex: 1;
-    height: 40px;
-    background: #000;
-    border: 0;
-    padding: 0px 15px;
-    margin-left: 10px;
-    border-radius: 4px;
+export const ControlPagesButton = styled.button.attrs(props => ({
+  type: 'button',
+  disabled: props.firsPage === 1,
+}))`
+  flex: 1;
+  height: 38px;
+  background: #2e1f5f;
+  border: 0;
+  padding: 0px 15px;
+  margin-left: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  span {
+    font-size: 16px;
+    letter-spacing: 1.3px;
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
   }
 `;

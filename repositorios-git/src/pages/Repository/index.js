@@ -11,6 +11,7 @@ import {
   IssueList,
   ButtonFilterIssue,
   ButtonControllerPages,
+  ControlPagesButton,
 } from './styles';
 import Container from '../../components/Container';
 
@@ -56,18 +57,20 @@ export default class Repository extends Component {
     });
   }
 
+  // Ao alterar o tipo de issue o valor de page tbm é altera, pois a lista deve recomeçar do ínicio
   handleFilter = async s => {
-    const { page, repository } = this.state;
+    const { repository } = this.state;
     const issues = await api.get(`/repos/${repository.full_name}/issues`, {
       params: {
         state: s,
         per_page: 10,
-        page,
+        page: 1,
       },
     });
     this.setState({
       issues: issues.data,
       stateIssue: s,
+      page: 1,
     });
   };
 
@@ -87,9 +90,8 @@ export default class Repository extends Component {
   render() {
     const { repository, issues, loading, page } = this.state;
 
-    if (loading) {
-      return <Loading>Carregando</Loading>;
-    }
+    if (loading) return <Loading>Carregando</Loading>;
+
     return (
       <Container>
         <Owner>
@@ -111,14 +113,17 @@ export default class Repository extends Component {
             </button>
           </ButtonFilterIssue>
           <ButtonControllerPages>
-            <button type="button" onClick={() => this.handlePage(-1, page)}>
+            <ControlPagesButton
+              firsPage={page}
+              onClick={() => this.handlePage(-1, page)}
+            >
               <FaAngleLeft color="#FFF" size={14} />
               <span>Prev</span>
-            </button>
-            <button type="button" onClick={() => this.handlePage(1, page)}>
-              <FaAngleRight color="#FFF" size={14} />
+            </ControlPagesButton>
+            <ControlPagesButton onClick={() => this.handlePage(1, page)}>
               <span>Next</span>
-            </button>
+              <FaAngleRight color="#FFF" size={14} />
+            </ControlPagesButton>
           </ButtonControllerPages>
           {issues.map(issue => (
             <li key={String(issue.id)}>
