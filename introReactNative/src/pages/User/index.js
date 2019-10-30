@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import api from '../../services/api';
 
 import {
@@ -15,6 +14,7 @@ import {
   Info,
   Title,
   Author,
+  LoadingStars,
 } from './styles';
 
 export default class User extends Component {
@@ -25,11 +25,16 @@ export default class User extends Component {
   static propTypes = {
     navigation: PropTypes.shape({
       getParam: PropTypes.func,
+      navigate: PropTypes.func,
     }).isRequired,
   };
 
   state = {
     stars: [],
+    loadingStars: true,
+    page: 1,
+    user: {},
+    refreshing: false,
   };
 
   async componentDidMount() {
@@ -38,13 +43,38 @@ export default class User extends Component {
 
     const response = await api.get(`users/${user.login}/starred`);
 
-    this.setState({ stars: response.data });
+    this.setState({
+      user,
+      stars: response.data,
+      loadingStars: false,
+      refreshing: false,
+    });
   }
 
-  render() {
+  refreshList = () => {
+    this.setState({ refreshing: true, stars: [] }, this.loadMore);
+  };
+
+  loadMore = async () => {
+    const { stars, user, page } = this.state;
+    const auxPage = page + 1;
+    console.tron.log(stars.length);
+    const response = await api.get(`users/${user.login}/starred`, {
+      params: { auxPage },
+    });
+    this.setState({
+      stars: [...stars, ...response.data],
+      page: auxPage,
+    });
+  };
+
+  handleNavigate = repo => {
     const { navigation } = this.props;
-    const { stars } = this.state;
-    const user = navigation.getParam('user');
+    navigation.navigate('Repository', { repo });
+  };
+
+  render() {
+    const { stars, loadingStars, user, refreshing } = this.state;
     return (
       <Container>
         <Header>
@@ -52,20 +82,27 @@ export default class User extends Component {
           <Name>{user.name}</Name>
           <Bio>{user.bio}</Bio>
         </Header>
-
-        <Stars
-          data={stars}
-          keyExtractor={star => String(star.id)}
-          renderItem={({ item }) => (
-            <Starred>
-              <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
-              <Info>
-                <Title>{item.name}</Title>
-                <Author>{item.owner.login}</Author>
-              </Info>
-            </Starred>
-          )}
-        />
+        {loadingStars && stars ? (
+          <LoadingStars size={100} />
+        ) : (
+          <Stars
+            onRefresh={this.refreshList}
+            refreshing={refreshing}
+            onEndReachedThreshold={0.2}
+            onEndReached={this.loadMore}
+            data={stars}
+            keyExtractor={star => String(star.id)}
+            renderItem={({ item }) => (
+              <Starred onPress={() => this.handleNavigate(item)}>
+                <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
+                <Info>
+                  <Title>{item.name}</Title>
+                  <Author>{item.owner.login}</Author>
+                </Info>
+              </Starred>
+            )}
+          />
+        )}
       </Container>
     );
   }
