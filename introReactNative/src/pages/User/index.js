@@ -42,7 +42,7 @@ export default class User extends Component {
     const user = navigation.getParam('user');
 
     const response = await api.get(`users/${user.login}/starred`);
-
+    console.tron.log(response.data.length);
     this.setState({
       user,
       stars: response.data,
@@ -82,19 +82,19 @@ export default class User extends Component {
           <Name>{user.name}</Name>
           <Bio>{user.bio}</Bio>
         </Header>
-        {loadingStars && stars ? (
+        {loadingStars ? (
           <LoadingStars size={100} />
         ) : (
           <Stars
-            onRefresh={this.refreshList}
-            refreshing={refreshing}
+            // onRefresh={this.refreshList}
+            // refreshing={refreshing}
             onEndReachedThreshold={0.2}
             onEndReached={this.loadMore}
             data={stars}
             keyExtractor={star => String(star.id)}
             renderItem={({ item }) => (
               <Starred onPress={() => this.handleNavigate(item)}>
-                <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
+                <OwnerAvatar source={{ uri: item && item.owner.avatar_url }} />
                 <Info>
                   <Title>{item.name}</Title>
                   <Author>{item.owner.login}</Author>

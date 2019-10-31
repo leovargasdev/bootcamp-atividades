@@ -22,7 +22,7 @@ body {
 /* Header.js */
 
 header {
-  background: #13222f;
+  background: #07202f;
   display: flex;
   justify-content: center;
 }
@@ -63,13 +63,6 @@ nav img {
   width: 700px;
   margin: 0 auto 20px;
 }
-#post-list button{
-  border: 0;
-  border-radius: 10px;
-  font-weight: bold;
-  margin-top: 10px;
-  color: #FFF;
-}
 
 #post-list button:hover{
   cursor: pointer;
@@ -80,7 +73,7 @@ nav img {
 .post {
   margin-top: 20px;
   border-radius: 8px;
-  background: #192734;
+  background: #07202f;
   padding: 20px;
   color: #FFF;
   line-height: 20px;
@@ -103,7 +96,7 @@ nav img {
   font-size: 18px;
   color: #FFF;
   font-weight: 900;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .post-author .info span{
@@ -127,28 +120,39 @@ nav img {
 .post-content p:first-child{
   margin-bottom: 20px;
 }
-
 .divider {
   width: 100%;
   height: 1px;
   background: #eeeeee;
 }
-
-#post-list button#btn-new-post, #post-list button#btn-reset-posts{
+#post-list button{
   width: 100%;
   font-size: 22px;
-  background-color: #0f1a25;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 50px;
+  border: 0;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #FFF;
 }
-
-#post-list button#btn-reset-posts{
-  background-color: #7d0d0d;
+#post-list button#btn-reset-feed{
+  background-color: rgb(202, 11, 0);
 }
-
+#post-list button#btn-reset-feed:hover{
+  background-color: rgba(204, 10, 0, 0.8);
+}
+#post-list button#btn-new-post{
+  background-color: rgb(7, 32, 47);
+}
 #post-list button#btn-new-post:hover{
-  background-color: #222f3c;
+  background-color: rgba(7, 32, 47, 0.6);
 }
-
+#post-list button i {
+  padding-right: 5px;
+}
 /* Comment.js */
 .post-comments {
   margin-top: 20px;
@@ -162,7 +166,7 @@ nav img {
 .comment p {
   border-radius: 7px;
   font-size: 14px;
-  background: #1e2e3c;
+  background: #263542;
   color: #FFF;
   margin-left: 15px;
   padding: 15px;
@@ -177,12 +181,12 @@ nav img {
 }
 
 #post-list button#btn-new-comment{
-  font-size: 18px;
-  background-color: #2f4150;
-  height: 45px;
+  font-size: 20px;
+  height: 42px;
+  background-color: rgb(3, 62, 62);
   margin-left: 20%;
   width: 60%;
 }
 #post-list button#btn-new-comment:hover{
-  background-color: #22384a;
+  background-color: rgba(3, 62, 62, 0.6);
 }

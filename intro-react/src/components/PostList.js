@@ -78,12 +78,12 @@ class PostList extends Component {
   render() {
     return(
       <div id="post-list">
-        <button id="btn-reset-posts" onClick={this.handleResetPost}>
-          Reset Posts
+        <button id="btn-reset-feed" onClick={this.handleResetPost}>
+        <i className="material-icons">delete</i> Reset Feed
         </button>
         {this.state.posts.map(post => <Post {...post} key={post.id} newComment={() => this.handleNewComment(post.id)}/>)}
         <button id="btn-new-post" onClick={this.handleNewPost}>
-          New Post
+        <i className="material-icons">add_box</i> New Post
         </button>
       </div>
     );

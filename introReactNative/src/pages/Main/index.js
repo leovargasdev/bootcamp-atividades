@@ -15,6 +15,8 @@ import {
   Avatar,
   Name,
   Bio,
+  RemoveProfileButton,
+  RemoveProfileButtonText,
 } from './styles';
 
 import api from '../../services/api';
@@ -36,15 +38,15 @@ export default class Main extends Component {
     newUser: '',
   };
 
-  async componentDidMount() {
-    const users = await AsyncStorage.getItem('users');
+  // async componentDidMount() {
+  //   const users = await AsyncStorage.getItem('users');
 
-    if (users) {
-      this.setState({
-        users: JSON.parse(users),
-      });
-    }
-  }
+  //   if (users) {
+  //     this.setState({
+  //       users: JSON.parse(users),
+  //     });
+  //   }
+  // }
 
   componentDidUpdate(_, prevState) {
     const { users } = this.state;
@@ -80,6 +82,16 @@ export default class Main extends Component {
     navigation.navigate('User', { user });
   };
 
+  handleRemoveUser = user => {
+    const { users } = this.state;
+    const itemRemove = users.findIndex(s => s.login === user.login);
+    console.tron.log(itemRemove);
+    users.slice(itemRemove, 1);
+    this.setState({
+      users,
+    });
+  };
+
   render() {
     const { users, newUser, loading } = this.state;
     return (
@@ -109,11 +121,16 @@ export default class Main extends Component {
             <User>
               <Avatar source={{ uri: item.avatar }} />
               <Name>{item.name}</Name>
-              <Bio>{item.bio}</Bio>
-
+              {item.bio ? <Bio>{item.bio}</Bio> : null}
               <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>Ver Perfil</ProfileButtonText>
               </ProfileButton>
+
+              <RemoveProfileButton onPress={() => this.handleRemoveUser(item)}>
+                <RemoveProfileButtonText>
+                  Remover Perfil
+                </RemoveProfileButtonText>
+              </RemoveProfileButton>
             </User>
           )}
         />
